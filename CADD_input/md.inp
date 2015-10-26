@@ -1,0 +1,15 @@
+3	 !Damped Width
+0.25e14	4.0e-4 !LangevinCoeff-base(B) and ratio(r):fix B for Marder and vary r to get Langevin rB
+100.0	 !NoseHoover Damp Parameter in picosecond
+001.0  	!Required temp
+2e-15   !timestep  for Ni
+1       !timestep for H is timestep for Ni/ this integer number
+25      !# of MD steps before each FEM Step - keep this value for other calculations, e.g., different mat'l
+200	  !# of MD steps at fixed load increment, increase no. if the oscillation of T vs. step (data from temp.dat) is too large
+Marder		! Thermostat (NoseHoover/Berendsen/Marder/Langevin)
+OFF      ! fixed, ignore 
+0	 ! Number of MDSteps for rescaling
+10.0	 ! Temperature rescaling window
+500 10000. 1	!1st: # doing H stablizer, 2nd: MaxT allowable for H, 3rd: Whether or not exclude H from Thermostat
+500      ! max MD steps allowable
+

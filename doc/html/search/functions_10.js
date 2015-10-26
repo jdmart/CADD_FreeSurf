@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['ranmar',['ranmar',['../namespacemod__dd__slip.html#ab0d01d82f8bbe9bb679f135bb335964f',1,'mod_dd_slip']]],
+  ['readconstitutive',['readconstitutive',['../namespacemod__poten.html#afebbec4ae250e4f9993fe652d107c51d',1,'mod_poten']]],
+  ['readeigfile',['readeigfile',['../disl__field_8f.html#a4c1506e9279c4e41828db795c583b380',1,'disl_field.f']]],
+  ['readeigfile2',['readeigfile2',['../disl__field_8f.html#a3a3b34fa0dd0aec0199cd59ef0a5b5c6',1,'disl_field.f']]],
+  ['readgraindata',['readgraindata',['../namespacemod__grain.html#a5eaaea76fdd08acf2863bde472184ada',1,'mod_grain']]],
+  ['readinterstitialdata',['readinterstitialdata',['../namespacemod__interstitial.html#a833522036be7951b53df7843704ef343',1,'mod_interstitial']]],
+  ['readmaterials',['readmaterials',['../namespacemod__material.html#ac946e162f73cabe11b7e85ae2759916e',1,'mod_material']]],
+  ['readneighborlist',['readneighborlist',['../namespacemod__output.html#a949b37686fc8a7123feaf1eefd7e08ee',1,'mod_output']]],
+  ['readpoten',['readpoten',['../namespacemod__poten.html#ab99c1135cde15947d141abf042a0e886',1,'mod_poten']]],
+  ['reduce',['reduce',['../bandwidth_8f.html#ab3b8ffe424d005ab1792d036c2a09f26',1,'bandwidth.f']]],
+  ['remove_5fdisl_5fglobal',['remove_disl_global',['../namespacemod__dd__slip.html#a6ca1bfbcf018ab04c20fc2cb9028a042',1,'mod_dd_slip']]],
+  ['rest',['rest',['../restart_8f.html#ac8f53f0a8a17444a16f8b3ed189a624e',1,'restart.f']]],
+  ['rgauss',['rgauss',['../namespacemod__dd__slip.html#a9de7ed02bffbdc8365d369962a9834be',1,'mod_dd_slip']]],
+  ['rhfl',['rhfl',['../namespacemod__poten.html#a7f0262d70b7daecd7ab76d18d2f84c73',1,'mod_poten']]],
+  ['rintersectratio',['rintersectratio',['../polygrain_8f.html#a82750106614a2aec5ad08378fe5d4669',1,'polygrain.f']]],
+  ['rlsdis',['rlsdis',['../namespacemod__dd__slip.html#aeba8fb187f64622088528a9e46949293',1,'mod_dd_slip']]],
+  ['rmarin',['rmarin',['../namespacemod__dd__slip.html#ae516f5f99cd702f7ab3000d65fd31e84',1,'mod_dd_slip']]],
+  ['rmdisl',['rmdisl',['../namespacemod__dd__slip.html#afc16df362e68c4cef155b9f81b777d2a',1,'mod_dd_slip']]],
+  ['rmdisl_5fg',['rmdisl_g',['../namespacemod__dd__slip.html#a048140a438fd917252a83405fee5f613',1,'mod_dd_slip']]],
+  ['rotateburgers',['rotateburgers',['../dislocation_8f.html#a586e7361425d3a58d1ab5b5ac4eaceda',1,'dislocation.f']]],
+  ['rotatevoigt',['rotatevoigt',['../pmacr1_8f.html#ac66f2bd873482ff38e0a9f21497e023d',1,'pmacr1.f']]],
+  ['rv2',['rv2',['../namespacemod__dynamo.html#ad38fb460674572df64ee288fdbeeaef6',1,'mod_dynamo']]]
+];

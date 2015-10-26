@@ -1,0 +1,64 @@
+feap blunt crack with a dipole nearby
+500000,500000,2,3,3,6,1,0 
+1
+ 
+print 
+ 
+material 
+1
+/home/srinath/CADD_potentials/EA_AlHex_001K.mat 
+
+grains 
+ductile.geo 
+ 
+constitutive 
+T 
+/home/srinath/CADD_potentials/EA1_aluminum_Hex.fcn 
+
+mp01 
+10,10 
+80,200,400,600,900,1000,2000,3000,5000,10000
+40,100,200,400,600,900,1000,2000,5000,10000
+30.0
+3.0
+0.01 0.01 
+25.0
+end 
+
+% line 4: 30.0
+% line 5: 3.0
+
+% set precrack from 0.285 to 0.25.
+ 
+macros 
+precrack,,0.25
+tolerance,,1.d-6
+ddset
+%ma02,atom,atom.cfg,1,1.,1. 
+%ma02,pdbf,PDBF.pdb,1,1.,1.
+ma06,,333
+getc
+ma02,atom,atom.cfg,1,1.,1. 
+%ma02,stra,strain.plt,1,1.,1. 
+ma02,viri,viri.vtk,1,1.,1. 
+ma02,disl,disl.vtk,10,1.,1.
+
+%stre
+%newd,dire,60.0,43.301271,-1.41543355,-2.45160282333758285709,0.0,1,0.0
+%newd,dire,600.0,433.01271,1.41543355,2.45160282333758285709,0.0,0,0.0
+%newd,disl.dat
+
+dtime,,0.0
+loop,time,2000
+  time
+  ma01
+  ma06,,333
+ma02,atom,atom.cfg,10,1.,1. 
+%ma02,stra,strain.plt,10,1.,1. 
+ma02,viri,viri.vtk,10,1.,1. 
+ma02,disl,disl.vtk,10,1.,1.
+next,time
+
+end 
+stop 
+ 
