@@ -40,7 +40,7 @@ c
       character*6 cnt
       logical flag
 cc--JS: update icount entries if adding new ikey      
-      integer, save :: icount(11)=0, nprint
+      integer, save :: icount(12)=0, nprint
       integer i,lower,upper,next,ikey,j,logic,index,idum
       double precision dum,scale,umag
 c
