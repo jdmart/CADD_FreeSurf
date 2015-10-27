@@ -1,3 +1,4 @@
+#
 #/bin/bash
 #
 echo executable path: /net/angmar/home/jmartino/CADD_FreeSurf/build/CADD
