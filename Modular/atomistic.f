@@ -62,10 +62,10 @@ CC--Jun Song Screen Print if updating neighborlist
       endif
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
-     
+c      print *, 'Total no. of nodes =', numnp
       do irep = 1, numnp
-         NeedList=IsRelaxed(irep).ne.0
-c         NeedList=IsRelaxed(irep).ge.1
+c         NeedList=IsRelaxed(irep).ne.0
+          NeedList=IsRelaxed(irep).ge.1
          call gneigh(irep,b,x,NeedList)
          if(NeedList) then
 c

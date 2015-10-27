@@ -777,10 +777,10 @@ c$$$               endif
      $     dsi,sout(3), Fg, Fgg,snew, roldq(3), phi2, rhs(*)
       double precision :: sinit, sfinal, tauii, tau, xi, yi
       double precision :: dist, eps,dlim, flim, dstar, s1, xstart,ystart
-c$$$      double precision, allocatable :: tau1(:,:), v1(:,:), c(:,:),
-c$$$     $     sold(:,:)
-      double precision :: tau1(mxndis,nslp), v1(mxndis,nslp),
-     $     c(mxndis,nslp), sold(mxndis,nslp)
+      double precision, allocatable :: tau1(:,:), v1(:,:), c(:,:),
+     $     sold(:,:)
+c$$$      double precision :: tau1(mxndis,nslp), v1(mxndis,nslp),
+c$$$     $     c(mxndis,nslp), sold(mxndis,nslp)
       double precision :: cnew, ddt, dt, dx, dv, ddtm, vi, vpp,vj, xqone
       double precision :: tlce, rpile, ds, temp_s(mxndis,nslp)
       logical :: move_bottom
@@ -796,8 +796,8 @@ c$$$     $     sold(:,:)
       dstar = 2.d0*blen
       rpile = dstar
       
-c$$$      allocate(tau1(mxndis,nslp), v1(mxndis,nslp), c(mxndis,nslp))
-c$$$      allocate(sold(mxndis,nslp))
+      allocate(tau1(mxndis,nslp), v1(mxndis,nslp), c(mxndis,nslp))
+      allocate(sold(mxndis,nslp))
       tau1 = 0.0d0
       v1 = 0.0d0
       c = 0.0d0
@@ -1503,57 +1503,57 @@ c$$$      do while (islp <= nslp)
          call ranmar(rand,2)
 
   !        Hard code one source on +60 slip plane a little distacnce   away
-         if (locphi(islp) .ne. 3) then 
-            if (xslp(islp) > 5.d0*blen-1.d0 .and.
-     $           xslp(islp) < 5.d0*blen+1.d0) then 
-                  if (yend > 0.0d0) then 
-                     if (yendslp(islp) > 0.0d0) then 
-                        if (locphi(islp) == 1) then 
-                           dlengthslp = lnuc + 100.0d0 + rand(1)*lnuc
-                        else
-                           dlengthslp = 2.d0*lnuc + 100.0d0 + rand(1)
-     $                          *lnuc
-                        end if
-                     else
-                        dlengthslp = 4.d0*lnuc + 100.0d0 + rand(1)*lnuc
-                     end if
-                     if (locphi(islp) == 1) then 
-                        if (yendslp(islp) < 0.0d0) then 
-                           cycle
-                        end if
-                     end if
-                     k = 1
-                     nnuc(islp) = k
-                     t_FR(k,islp) = avg_source_str
-                     xLnuc(k,islp) = lnuc
-                     ii = ii + 1
-                     snuc(k,islp) = dlengthslp 
-                     if (yend > 0) then 
-                        rnuc(1,k,islp) = xstart + dlengthslp*cphi
-                        rnuc(2,k,islp) = ystart + dlengthslp*sphi
-                        rnuc(3,k,islp) = 0.0
-                     else
-                        if (locphi(islp) ==1) then 
-                           rnuc(1,k,islp) = xstart - dlengthslp*cphi
-                        else
-                           rnuc(1,k,islp) = xstart+abs(dlengthslp*cphi)
-                        endif
-                        rnuc(2,k,islp) = -(ystart + dlengthslp*sphi)
-                        rnuc(3,k,islp) = 0.0
-                     endif
-                     elem_source(k,islp) = fe_locate(rnuc(:,k,islp),1)
-                     write( *,fmt='(A10,1X,3(1x,E15.7))') 'Coords are',
-     $                    snuc(k,islp),rnuc(1,k,islp), rnuc(2,k,islp)
-                     print *, 'Located in Element ', elem_source(k,islp)
-                     print *, 'Islp = ', islp, locphi(islp), cphi, sphi
-c$$$                     exit
-                  endif 
-            else
-               goto 10
-            endif
-         else 
-            goto 10
-         endif
+c$$$         if (locphi(islp) .ne. 3) then 
+c$$$            if (xslp(islp) > 5.d0*blen-1.d0 .and.
+c$$$     $           xslp(islp) < 5.d0*blen+1.d0) then 
+c$$$                  if (yend > 0.0d0) then 
+c$$$                     if (yendslp(islp) > 0.0d0) then 
+c$$$                        if (locphi(islp) == 1) then 
+c$$$                           dlengthslp = lnuc + 100.0d0 + rand(1)*lnuc
+c$$$                        else
+c$$$                           dlengthslp = 2.d0*lnuc + 100.0d0 + rand(1)
+c$$$     $                          *lnuc
+c$$$                        end if
+c$$$                     else
+c$$$                        dlengthslp = 4.d0*lnuc + 100.0d0 + rand(1)*lnuc
+c$$$                     end if
+c$$$                     if (locphi(islp) == 1) then 
+c$$$                        if (yendslp(islp) < 0.0d0) then 
+c$$$                           cycle
+c$$$                        end if
+c$$$                     end if
+c$$$                     k = 1
+c$$$                     nnuc(islp) = k
+c$$$                     t_FR(k,islp) = avg_source_str
+c$$$                     xLnuc(k,islp) = lnuc
+c$$$                     ii = ii + 1
+c$$$                     snuc(k,islp) = dlengthslp 
+c$$$                     if (yend > 0) then 
+c$$$                        rnuc(1,k,islp) = xstart + dlengthslp*cphi
+c$$$                        rnuc(2,k,islp) = ystart + dlengthslp*sphi
+c$$$                        rnuc(3,k,islp) = 0.0
+c$$$                     else
+c$$$                        if (locphi(islp) ==1) then 
+c$$$                           rnuc(1,k,islp) = xstart - dlengthslp*cphi
+c$$$                        else
+c$$$                           rnuc(1,k,islp) = xstart+abs(dlengthslp*cphi)
+c$$$                        endif
+c$$$                        rnuc(2,k,islp) = -(ystart + dlengthslp*sphi)
+c$$$                        rnuc(3,k,islp) = 0.0
+c$$$                     endif
+c$$$                     elem_source(k,islp) = fe_locate(rnuc(:,k,islp),1)
+c$$$                     write( *,fmt='(A10,1X,3(1x,E15.7))') 'Coords are',
+c$$$     $                    snuc(k,islp),rnuc(1,k,islp), rnuc(2,k,islp)
+c$$$                     print *, 'Located in Element ', elem_source(k,islp)
+c$$$                     print *, 'Islp = ', islp, locphi(islp), cphi, sphi
+c$$$c$$$                     exit
+c$$$                  endif 
+c$$$            else
+c$$$               goto 10
+c$$$            endif
+c$$$         else 
+c$$$            goto 10
+c$$$         endif
 
 
 c$$$!     Generate source randomly from gaussian distribution

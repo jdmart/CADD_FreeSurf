@@ -45,7 +45,7 @@
 !     !**   EFFECTIVE CUTOFF FACTOR (in multiples of rcut gives the
 !     radius in
 !     !**   the deformed configuration contributing to an atom's
-!     neighbor list).
+!     neighbor lis).
 !     !**   The larger this factor the fewer updates to the neighbor
 !     lists will
 !     !**   be necessary during relaxation, but more atoms will be

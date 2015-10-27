@@ -64,6 +64,8 @@ c     Initialize out-of-balance force vector
       integer i,j,k,icheck,icheck2, logic
       logical first,silent,intri,ontri
 
+      if (allocated(IsRelaxed)) deallocate(IsRelaxed)
+      if (.not. allocated(IsRelaxed)) allocate(IsRelaxed(numnp))
 !--- only atoms in the atomistic region (abs(ix(nen1,i)).eq.1) are "relaxed"
 !--- in CG.
 !-- IsRelaxed=0: continuum

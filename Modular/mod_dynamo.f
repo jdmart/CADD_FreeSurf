@@ -48,7 +48,7 @@
          allocate(NumNeighbors(numnp)) 
                                                                         
          do iAtom = 1, numnp 
-!     print*, 'iAtom: ', iAtom                                          
+            !print*, 'iAtom: ', iAtom                                          
             do j = 1, MAXNEIGHBORS 
                NeighborList(j, iAtom) = 0 
             enddo 
@@ -58,7 +58,7 @@
 !--   Vijay	  	                                                         
                                                                         
                                                                         
-!     print*, 'In gNeigh: iAtom: ', i                                   
+!      print*, 'In gNeigh: iAtom: ', i                                   
       if(i.eq.numnpp1) then 
          rcutsq=CutoffR2(-1) 
       else 
@@ -279,7 +279,9 @@
 !.....store the index of the particle                                   
 !.....                                                                  
 !     c--JS                                                             
-         nnindx(i) = nnindx(i) + 1 
+         nnindx(i) = nnindx(i) + 1
+         print *, 'Atom = ', i, nnindx(i), UpdateNeigh(i), newlst, j,
+     $        IsRelaxed(j), rdyn(j)
          nnlst(i,nnindx(i)) = j 
 !.....                                                                  
 !     determine which pairs are separated by less than rcut             

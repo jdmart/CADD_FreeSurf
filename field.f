@@ -85,7 +85,6 @@
             if((x(2,i).GT.1.0).AND.(x(2,i).LT.2.0)) then
                yHShift=-0.1d0
             endif
-
          endif
 !CC   --END            
          if(dflag.eq.0.0) then
