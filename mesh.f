@@ -708,9 +708,10 @@ C------- insert H atoms in the crack tip region
         minDb=int(minDb/dy)*dy
 	   nr1 = int((abs(detectionBand%xmin)-minDb)/dx)+1
 	   nr2 = int((abs(detectionBand%xmAX)-minDb)/dx)+1
-        nr2 = nr1
+c$$$        nr2 = nr1
 	   nr3 = int((abs(detectionBand%ymin)-minDb)/dy)+1
 	   nr4 = int((abs(detectionBand%ymax)-minDb)/dy)+1
+        nr4 = nr3
 
 	   ndbpoly=max(nr1,nr2,nr3,nr4)+1
         ndbpoly = 2
