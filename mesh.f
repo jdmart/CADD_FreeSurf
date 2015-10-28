@@ -352,6 +352,8 @@ c     hard coded for 1 grain
 !     elist.  While you are at it, apply the b.c.s
 
          if (bot.or.right.or.left) then
+!JM only apply BCs to bottom edge...elist only of bot edge
+!JM         if (bot) then
             nce=nce+1
             if (nce.gt.NCEMAX) then
                if(nce.gt.NCEMAX) call IncreaseElist(100)
@@ -359,7 +361,9 @@ c     hard coded for 1 grain
             elist(1,nce)=i
 
 ! apply the b.c's
-            if (bot.or.right.or.left) then
+!JM            if (bot.or.right.or.left) then
+!JM only bc's on bottom edge (fix x and y)
+            if (bot) then
 c$$$            if (bot) then 
                id(1,i)=1
                id(2,i)=1
