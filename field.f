@@ -22,26 +22,38 @@
 !     
 !     applied displacement b.c.
 !     
-      print *, '!!!!!!!!Calling k-field!!!!!!'
+!JM      print *, '!!!!!!!!Calling k-field!!!!!!'
+      print *, '!!!!!! NOT CALLING k-field !!!!!!'
 
  10   do i=1,numnp
 !     fixed = .false.
-         do j = 1, ndf
+
+!REMOVED THIS LOOP AND IF SINCE WE ARE NOT APPLYING A K-FIELD
+!JM         do j = 1, ndf
+
 !     fixed = (fixed.or.(id(j,i).eq.1))
 !     enddo
 !     if(fixed) then
-            if (id(j,i) .eq. 1) then 
+
+!JM            if (id(j,i) .eq. 1) then 
+
 !     print *, 'Calling k-field on  ', i, x(1,i), x(2,i)
 !cc   --Only used when doing FEM, when b and f are obtained by scaling
 !cc   --the current ones by time (that's why 1.0d0 is used below)
-               call kfield_displ(1.0d0, x(1, i), btmp, lambda, mu, 0.0)
+
+!JM               call kfield_displ(1.0d0, x(1, i), btmp, lambda, mu, 0.0)
+
 !     print *, 'K_field =', i, btmp(1), btmp(2)
 !cc   --End of Mod
-            endif
-         end do
+
+!JM            endif
+
+!JM         end do
          do j=1,ndf
             if(id(j,i).eq.1) then
-               f(j,i)=btmp(j)
+!JM               f(j,i)=btmp(j)
+!fix applied displacement to 0.0....could just comment out?
+               f(j,i)=0.0
             endif
          enddo
       enddo
