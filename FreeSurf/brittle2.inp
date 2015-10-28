@@ -31,7 +31,7 @@ end
 % set precrack from 0.285 to 0.25.
  
 macros 
-precrack,,0.0
+%precrack,,0.0
 tolerance,,1.d-6
 ddset
 ma02,ovit,atom.cfg,1,1.,1. 
@@ -49,7 +49,7 @@ ma02,disl,disl.vtk,10,1.,1.
 %newd,disl.dat
 
 dtime,,0.0
-loop,time,2
+loop,time,4
   time
   ma01
   ma06,,333
