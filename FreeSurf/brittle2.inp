@@ -48,10 +48,12 @@ ma02,disl,disl.vtk,10,1.,1.
 %newd,dire,600.0,433.01271,1.41543355,2.45160282333758285709,0.0,0,0.0
 %newd,disl.dat
 
+%time independent BCs w/o k-field
+ma01
+
 dtime,,0.0
 loop,time,4
   time
-  ma01
   ma06,,333
 ma02,ovit,atom.cfg,10,1.,1. 
 %ma02,stra,strain.plt,10,1.,1. 
