@@ -34,11 +34,12 @@ macros
 %precrack,,0.0
 tolerance,,1.d-6
 ddset
-ma02,ovit,atom.cfg,1,1.,1. 
+%ma02,ovit,atom.cfg,1,1.,1. 
 %ma02,pdbf,PDBF.pdb,1,1.,1.
 ma06,,333
 getc
-ma02,ovit,atom.cfg,1,1.,1. 
+ma02,ovit,ovit.cfg,1,1.,1.
+ma02,atom,atom.cfg,1,1.,1. 
 %ma02,stra,strain.plt,1,1.,1. 
 ma02,viri,viri.vtk,1,1.,1. 
 ma02,disl,disl.vtk,10,1.,1.
@@ -55,7 +56,8 @@ dtime,,0.0
 loop,time,4
   time
   ma06,,333
-ma02,ovit,atom.cfg,10,1.,1. 
+ma02,ovit,ovit.cfg,10,1.,1.
+ma02,atom,atom.cfg,10,1.,1. 
 %ma02,stra,strain.plt,10,1.,1. 
 ma02,viri,viri.vtk,10,1.,1. 
 ma02,disl,disl.vtk,10,1.,1.
