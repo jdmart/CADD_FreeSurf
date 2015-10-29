@@ -50,11 +50,13 @@ ma02,disl,disl.vtk,10,1.,1.
 %newd,disl.dat
 
 %time independent BCs w/o k-field
-ma01
+%ma01
 
 dtime,,0.0
-loop,time,4
+loop,time,10
   time
+%Apply f to subset of atoms in time for ma01
+  ma01
   ma06,,333
 ma02,ovit,ovit.cfg,10,1.,1.
 ma02,atom,atom.cfg,10,1.,1. 
