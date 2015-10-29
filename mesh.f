@@ -352,7 +352,7 @@ c     hard coded for 1 grain
 !        in setting boundary conditions as movable for
 !        a set of atoms
          midpt=(simulationCell%xmax-simulationCell%xmin)/2.d0
-         mid=((x(1,i).gt.(midpt-10.d0)).and.(x(1,i).lt.(midpt+10.d0))
+         mid=((x(1,i).gt.(midpt-10.d0)).and.(x(1,i).lt.(midpt+10.d0)))
 
 !     store all boundary points, but put crack faces at the beginning of
 !     elist.  While you are at it, apply the b.c.s
