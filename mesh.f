@@ -348,6 +348,12 @@ c     hard coded for 1 grain
          left=(x(1,i) .lt. simulationCell%xmin)
          right=(x(1,i) .gt. simulationCell%xmax)
 
+!JM      hard code for midpoint in x of simcell used
+!        in setting boundary conditions as movable for
+!        a set of atoms
+         midpt=(simulationCell%xmax-simulationCell%xmin)/2.d0
+         mid=((x(1,i).gt.(midpt-10.d0)).and.(x(1,i).lt.(midpt+10.d0))
+
 !     store all boundary points, but put crack faces at the beginning of
 !     elist.  While you are at it, apply the b.c.s
 
@@ -369,7 +375,14 @@ c$$$            if (bot) then
                id(2,i)=1
                print *, 'BCs on  node',i 
             endif
-	    	    
+
+!JM         apply bc on selection of atoms on top edge to practice
+!JM         a fixed displacement in time
+            if (top.and.mid) then
+               id(1,i) = 0
+               id(2,i) = 1
+            endif
+
          endif
  77   continue
 
