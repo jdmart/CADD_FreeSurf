@@ -373,14 +373,15 @@ c     hard coded for 1 grain
 c$$$            if (bot) then 
                id(1,i)=1
                id(2,i)=1
-               print *, 'BCs on  node',i 
+               print *, 'mesh: BCs on  node ',i 
             endif
 
 !JM         apply bc on selection of atoms on top edge to practice
-!JM         a fixed displacement in time
+!JM         a fixed y-displacement in time
             if (top.and.mid) then
                id(1,i) = 0
                id(2,i) = 1
+               print *, 'mesh: y-disp on atom',i, ' for dof ',j
             endif
 
          endif
