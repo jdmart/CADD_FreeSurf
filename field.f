@@ -23,7 +23,8 @@
 !     applied displacement b.c.
 !     
 !JM      print *, '!!!!!!!!Calling k-field!!!!!!'
-      print *, '!!!!!! NOT CALLING k-field !!!!!!'
+!JM      print *, '!!!!!! NOT CALLING k-field !!!!!!'
+      print *, '!!!!!!BEFORE BC and disp application!!!!!!'
 
  10   do i=1,numnp
 !     fixed = .false.
@@ -55,13 +56,13 @@
             if(id(j,i).eq.1) then
 !JM               f(j,i)=btmp(j)
                f(j,i)=0.0
-               print *,'-------MADE CONTINUUM BC------'
+               print *,'field: node', i, ' for dof' j
 !JM         for atomic positions with prescribed displacements in y,
 !           as chosen in mesh.f by id(i,j), apply a y displacement
 !           in time via f(j,j)
-               if(IsRelaxed(i).eq.1) then
+               if(isRelaxed(i).eq.1) then
                   f(j,i) = 0.5
-                  print *,'-------MADE ATOMIC DISPLACEMENT------'
+                  print *,'field: atom ',i,' disp in ', j
                endif
             endif
 
