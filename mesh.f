@@ -26,7 +26,7 @@ c build a blunt *center, crack
       double precision tol
 
 !     local variables
-      logical n1,n2,n3,m1,m2,m3, useDetectionBand
+      logical n1,n2,n3,m1,m2,m3, useDetectionBand, mid
       double precision, pointer:: nodeAngle(:)
       integer nXRegions,nYRegions, icell,ndxdy,numNodes,numx,numy,
      $     iSpace,ixrem,iyrem,iGrain,coincidentNodes,nodeStart,inode,
@@ -34,7 +34,7 @@ c build a blunt *center, crack
       integer nr1,nr2,nr3,nr4
       double precision XMax(0:20),YMax(0:20),nodeSite(3),
      $     dx,dy,dxdy,xxmin,xxmax,yymin,yymax,yyMinOrig,
-     $     delx,dely,xx,yy, minDb, rcutmesh,Dist2, large
+     $     delx,dely,xx,yy, minDb, rcutmesh,Dist2, large, midpt
       data tol /1.d-6/
       logical placeNode,top,bot,left,right,mirror
       
