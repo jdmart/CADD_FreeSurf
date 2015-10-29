@@ -56,7 +56,7 @@
             if(id(j,i).eq.1) then
 !JM               f(j,i)=btmp(j)
                f(j,i)=0.0
-               print *,'field: node', i, ' for dof' j
+               print *,'field: node',i, ' for dof ', j
 !JM         for atomic positions with prescribed displacements in y,
 !           as chosen in mesh.f by id(i,j), apply a y displacement
 !           in time via f(j,j)
