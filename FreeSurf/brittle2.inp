@@ -52,7 +52,7 @@ ma02,disl,disl.vtk,10,1.,1.
 %time independent BCs w/o k-field
 %ma01
 
-dtime,,0.0
+dtime,,1.0
 loop,time,10
   time
 %Apply f to subset of atoms in time for ma01
