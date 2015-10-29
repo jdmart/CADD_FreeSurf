@@ -657,9 +657,8 @@ CC           zdef = b(3,i)
               write(logic,'(''H0(3,3) = '',f10.3,'' A'')') z_length
            end if
            
-           xdef =(x(1,i)+umag*b(1,i)+box_min(1))/(box_max(1)-box_min(1))
-           ydef =(x(2,i)+umag*b(2,i)+box_max(1))
-     $          /(box_max(2)-box_min(2))
+           xdef =(x(1,i)+umag*b(1,i)-box_min(1))/(box_max(1)-box_min(1))
+           ydef =(x(2,i)+umag*b(2,i)-box_min(2))/(box_max(2)-box_min(2))
            zdef = (x(3,i) + umag*b(3,i))/z_length
            if (IsRelaxed(i) == 1 .or. IsRelaxed(i) == 2) then 
               TAtom = "Al"
