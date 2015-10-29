@@ -51,6 +51,14 @@
 !JM         end do
          do j=1,ndf
             if(id(j,i).eq.1) then
+
+!JM         for atomic positions with prescribed displacements in y,
+!           as chosen in mesh.f by id(i,j), apply a y displacement
+!           in time via f(j,j)
+            if((isrelaxed(i).eq.1) then
+               f(j,i) = 0.5
+            endif
+
 !JM               f(j,i)=btmp(j)
 !fix applied displacement to 0.0....could just comment out?
                f(j,i)=0.0
