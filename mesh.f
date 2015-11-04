@@ -334,7 +334,7 @@ c     hard coded for 1 grain
       simulationCell%xmin = simulationCell%xmin + 10.d0
       simulationCell%xmax = simulationCell%xmax - 10.d0
       simulationCell%ymin = simulationCell%ymin + 10.d0
-      simulationCell%ymax = simulationCell%ymax - 0.1d0
+      simulationCell%ymax = simulationCell%ymax - 0.5d0
 
       print*, 'Detecting the outer cell boundary', numnp
       print *,  simulationCell%xmin,  simulationCell%xmax
@@ -351,8 +351,7 @@ c     hard coded for 1 grain
 !JM      hard code for midpoint in x of simcell used
 !        in setting boundary conditions as movable for
 !        a set of atoms
-         midpt=(simulationCell%xmax-simulationCell%xmin)/2.d0
-         mid=((x(1,i).gt.(midpt-10.d0)).and.(x(1,i).lt.(midpt+10.d0)))
+         mid=((x(1,i).gt.(-10.d0)).and.(x(1,i).lt.(10.d0)))
 
 !     store all boundary points, but put crack faces at the beginning of
 !     elist.  While you are at it, apply the b.c.s
@@ -365,6 +364,7 @@ c     hard coded for 1 grain
                if(nce.gt.NCEMAX) call IncreaseElist(100)
             endif
             elist(1,nce)=i
+         endif
 
 ! apply the b.c's
 !JM            if (bot.or.right.or.left) then
@@ -373,18 +373,17 @@ c     hard coded for 1 grain
 c$$$            if (bot) then 
                id(1,i)=1
                id(2,i)=1
-               print *, 'mesh: BCs on  node ',i 
+               print *, 'mesh: node ',i,' dof ',j
             endif
 
 !JM         apply bc on selection of atoms on top edge to practice
 !JM         a fixed y-displacement in time
-            if (top.and.mid) then
+            if (mid.and.top) then
                id(1,i) = 0
                id(2,i) = 1
-               print *, 'mesh: y-disp on atom',i, ' for dof ',j
+               print *, 'mesh: atom',i, ' for dof ',j
             endif
 
-         endif
  77   continue
 
 ! sort the boundary so that is goes CCW.
