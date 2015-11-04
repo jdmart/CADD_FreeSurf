@@ -14,7 +14,7 @@
      &		atomForce(ndf,*), systemEnergy, atomMass, aveDispl(ndf,*)
 	integer  id(ndf,*), ix(nen1,*)
 	logical MoveAtoms,MoveDisl, FullField, solveFEM, ChangeTime
-	integer iAtom, j, i,iFem
+	integer iAtom, j, i, iFem, jdof
 	double precision displ_old(3), displ_new(3)
         double precision strainE0
 
@@ -30,12 +30,28 @@
 	   do iatom = 1, numnp
 		atomForce(1:ndf, iatom) =
      &		 -atomForce(1:ndf, iatom)
-   		if (isRelaxed(iatom) .eq. indexContinuum
+   	    if (isRelaxed(iatom) .eq. indexContinuum
      &		 .or. isRelaxed(iatom) .eq. indexPad) then
  		    atomDispl(1:ndf, iatom) =
      &		     aveDispl(1:ndf, iAtom)
-		endif
-	   enddo
+
+	    endif
+
+!!JM Hardcode fix to add displacements to BC atoms
+   	     if (isRelaxed(iatom) .eq. indexAtom
+     &		 .or. isRelaxed(iatom) .eq. indexInterface) then
+           do jdof = 1,ndf
+              if (id(jdof,iatom) .eq. 1) then
+
+                atomDispl(jdof, iatom) = aveDispl(jdof, iAtom)    	      
+
+              endif
+
+	       enddo
+
+	     endif
+
+	    enddo
 
 !!	   Zero out forces for fixed nodes
 	   do i=1,ndf
@@ -43,7 +59,7 @@
                  if (idtemp(i,j)) then
                     atomForce(i,j)=0
                  endif
-               enddo
+            enddo
 	    enddo	    
 	endif
         call cpu_time(ct3)
@@ -64,6 +80,18 @@
      &	  atomForce,.true.,.true.)
         call cpu_time(ct3)
         ct4=ct4+ct3-ct2
+
+!!JM Hard Code to 0 out forces on BC atoms
+       do i=1,ndf
+          do j=1,numnp
+             if (idtemp(i,j)) then
+	            if (isRelaxed(iAtom) .eq. indexAtom .or.
+     &	          isRelaxed(iAtom) .eq. indexInterface)	then
+                     atomForce(i,j)=0
+                endif
+             endif
+          enddo
+       enddo
 
 	return
 	end
