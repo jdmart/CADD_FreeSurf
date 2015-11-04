@@ -54,9 +54,11 @@
 
 !fix applied displacement to 0.0 for non-atom nodes
             if(id(j,i).eq.1) then
+               if(isRelaxed(i).ne.1) then
 !JM               f(j,i)=btmp(j)
-               f(j,i)=0.0
-               print *,'field: node',i, ' for dof ', j
+                  f(j,i)=0.0
+                  print *,'field: node',i, ' for dof ', j
+                endif
 !JM         for atomic positions with prescribed displacements in y,
 !           as chosen in mesh.f by id(i,j), apply a y displacement
 !           in time via f(j,j)
