@@ -437,7 +437,11 @@ c     find max and min of coordintes so that a box can be made.
         npatoms=0
         npad = 0
         ntot = 0
-        do i = 1,numnp
+!JM   loop adjustment made to include indenter atoms
+!JM   numnp vs numnpp1
+!        do i = 1,numnp
+        print*, '!!!!!!!!numnpp1 value is: ', numnpp1
+        do i = 1,numnpp1
           if( IsRelaxed(i)==1 .or. IsRelaxed(i)==2 .or.
      $          IsRelaxed(i)==-1) then
              if (IsRelaxed(i) ==-1) then 
