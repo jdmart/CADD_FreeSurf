@@ -30,7 +30,8 @@ c build a blunt *center, crack
       double precision, pointer:: nodeAngle(:)
       integer nXRegions,nYRegions, icell,ndxdy,numNodes,numx,numy,
      $     iSpace,ixrem,iyrem,iGrain,coincidentNodes,nodeStart,inode,
-     $     nsort,np1,numnp0, countLast, i,j, k, node1, node2, node3
+     $     nsort,np1,numnp0, countLast, i,j, k, node1, node2, node3,
+     $     numNodes0
       integer nr1,nr2,nr3,nr4
       double precision XMax(0:20),YMax(0:20),nodeSite(3),
      $     dx,dy,dxdy,xxmin,xxmax,yymin,yymax,yyMinOrig,
@@ -64,7 +65,7 @@ cc--JS: dwfactor 2 for asym and 1 for sym
       dwfactory = 1
 cc
       write(*,*)
-      write(*,*) 'Generating mesh containing an embedded crack'
+      write(*,*) 'Generating mesh with free surface and indenter atoms'
       write(*,*)
 
 
@@ -357,8 +358,6 @@ c     hard coded for 1 grain
 !     elist.  While you are at it, apply the b.c.s
 
          if (bot.or.right.or.left) then
-!JM only apply BCs to bottom edge...elist only of bot edge
-!JM         if (bot) then
             nce=nce+1
             if (nce.gt.NCEMAX) then
                if(nce.gt.NCEMAX) call IncreaseElist(100)
@@ -370,19 +369,18 @@ c     hard coded for 1 grain
 !JM            if (bot.or.right.or.left) then
 !JM only bc's on bottom edge (fix x and y)
             if (bot) then
-c$$$            if (bot) then 
                id(1,i)=1
                id(2,i)=1
-               print *, 'mesh: node ',i,' dof ',j
+               print *, 'FEM BC bot...mesh: node ',i,' dof ',j
             endif
 
 !JM         apply bc on selection of atoms on top edge to practice
 !JM         a fixed y-displacement in time
-            if (mid.and.top) then
-               id(1,i) = 0
-               id(2,i) = 1
-               print *, 'mesh: atom',i, ' for dof ',j
-            endif
+!            if (mid.and.top) then
+!               id(1,i) = 0
+!               id(2,i) = 1
+!               print *, 'mesh: atom',i, ' for dof ',j
+!            endif
 
  77   continue
 
@@ -448,6 +446,11 @@ c$$$         end if
 
       print *, 'No. of outer boundary edges = ', nce
 
+!     JM hard code elist out of mesh.f....triangulating concave region
+!     necessary when adding extra layer of atoms on top of free surface
+      print*, 'nce, ncb and elist hard coded to 0...concave region'
+      nce = 0
+      Elist = 0
       ncb=nce
 
 c     Triangulate, sets all elements to material 1 for this mesh
@@ -597,6 +600,92 @@ c     Triangulate, sets all elements to material 1 for this mesh
       endif
 
       if(numnp.gt.maxnp) stop 'Too many nodes'
+
+!JM-----------------ADDING BC ATOMS--------------------
+
+      print*, 'Adding a row of BC atoms (indenter) above free surface'
+      numNodes = numnp
+      numNodes0 = numnp
+      print*, 'Number of nodes before BC atoms: ', numnp
+
+!JM   for 1 layer of 7 atoms above atomistic region
+!      numx=int(6.0d0/dx)+1
+!      numy=1
+
+!      do i=-numx,numx
+!         xx=i*dx
+!         do j=numy,numy
+!            yy=j*dy
+
+!JM   adding spherical indenter
+      numx=int(12.0d0/dx)+1
+
+      do i=-numx,numx
+         xx=i*dx
+!JM      y points that will fit inside radius = numx*dx
+!JM      based on the current x position as we raster in y
+         print*, 'Before sqrt calc...'
+         numy=sqrt((numx*dx)*(numx*dx)-(i*dx)*(i*dx))/dy
+
+         print*, 'numx: ', i
+         print*, 'numy: ', numy
+
+         do j=-numy,numy
+!JM         moving sphere above atomistic region by dy
+!JM         since using only yy = j*dy would have only the
+!JM         top hemisphere above this region
+            yy=j*dy + (numx*dx) + 2*dy
+       
+            numNodes=numNodes+1
+       
+            nodeSite(1)=xx+mod(j,ndxdy)*dxdy
+            nodeSite(2)=yy
+       
+            call NearestBsite(nodeSite,1,.false.,x(1,numNodes),iGrain)
+
+!!          Skip this node if it is the atomistic region
+            if(insideRegion(x(1:2,numNodes),atomRegion)) then
+               numNodes=numNodes-1
+            endif
+
+            print*, 'Print out BC atom coordinates...repeats possible'
+            print*, 'It just means that said node was in atom region'
+            print*, 'and it did not get added'
+            print*, ''
+            print*, 'BC atom ', numNodes
+            print*, ' x: ', x(1,numNodes)
+            print*, ' y: ', x(2,numNodes)
+            print*, '-------------------'
+
+         enddo
+      enddo
+      
+      print*, 'Done adding BC atoms'
+      numnp = numNodes
+      print*, 'Number of nodes after adding BC atoms: ', numnp    
+
+!JM   Determine nodal character of brinell indenter atoms (isRelaxed = 1)
+!JM   cannot use statuscalc...only for triangulated nodal points that
+!JM   have elements...eventual use elist to create two seperate regions
+!JM   for the indeter atoms (also triangulated) and the substrate....
+!      call StatusCalc(x,ix,.true.)
+
+
+!JM   apply bc on selection of atoms on top edge to practice
+!JM   a fixed y-displacement in time
+
+      print*, '--------------------'
+      print*, 'Apply BC to BC atoms and set type to atom'
+      print*, 'via a hard code to isRelaxed'
+      print*, ''
+
+      do i=numNodes0,numnp
+         isRelaxed(i) = 1
+         id(1,i) = 0
+         id(2,i) = 1
+         print *, 'mesh BC: atom ',i
+      enddo
+
 
 c      allocate(atomSpecie(numnp))
 c      do i=1,numnp
