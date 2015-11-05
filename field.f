@@ -26,7 +26,10 @@
 !JM      print *, '!!!!!! NOT CALLING k-field !!!!!!'
       print *, '!!!!!!BEFORE BC and disp application!!!!!!'
 
- 10   do i=1,numnp
+!JM   loop adjustment made to include indenter atoms
+!JM   and BC's applied to them. numnp vs numnpp1
+! 10   do i=1,numnp
+ 10   do i=1,numnpp1
 !     fixed = .false.
 
 !REMOVED THIS LOOP AND IF SINCE WE ARE NOT APPLYING A K-FIELD
@@ -63,7 +66,7 @@
 !           as chosen in mesh.f by id(i,j), apply a y displacement
 !           in time via f(j,j)
                if(isRelaxed(i).eq.1) then
-                  f(j,i) = 0.5
+                  f(j,i) = -0.5
                   print *,'field: atom ',i,' disp in ', j
                endif
             endif
