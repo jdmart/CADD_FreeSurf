@@ -63,7 +63,7 @@
 !           as chosen in mesh.f by id(i,j), apply a y displacement
 !           in time via f(j,j)
                if(isRelaxed(i).eq.1) then
-                  f(j,i) = 0.5
+                  f(j,i) = -0.5
                   print *,'field: atom ',i,' disp in ', j
                endif
             endif
