@@ -25,7 +25,10 @@ c
 c     apply boundary conditions
 c     
       do i=1,ndf
-         do j=1,numnp
+!JM   loop adjustment made to include indenter atoms
+!JM   and BC's applied to them. numnp vs numnpp1
+!         do j=1,numnp
+         do j=1,numnpp1
             if (id(i,j).eq.1) b(i,j) = time*f(i,j)
          end do
       enddo
