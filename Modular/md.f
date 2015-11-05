@@ -27,7 +27,10 @@
      &      FullField, strainE0,iFem, Moved)
 
 !!		Get Forces and displacements, specifically on PAD atoms
-	   do iatom = 1, numnp
+!JM   loop adjustment made to include indenter atoms
+!JM   and BC's applied to them. numnp vs numnpp1
+!	   do iatom = 1, numnp
+	   do iatom = 1, numnpp1
 		atomForce(1:ndf, iatom) =
      &		 -atomForce(1:ndf, iatom)
    	    if (isRelaxed(iatom) .eq. indexContinuum
@@ -83,7 +86,10 @@
 
 !!JM Hard Code to 0 out forces on BC atoms
        do i=1,ndf
-          do j=1,numnp
+!JM   loop adjustment made to include indenter atoms
+!JM   and BC's applied to them. numnp vs numnpp1
+!          do j=1,numnp
+          do j=1,numnpp1
              if (idtemp(i,j)) then
 	            if (isRelaxed(iAtom) .eq. indexAtom .or.
      &	          isRelaxed(iAtom) .eq. indexInterface)	then
