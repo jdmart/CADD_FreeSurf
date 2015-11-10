@@ -40,7 +40,7 @@ c
       character*6 cnt
       logical flag
 cc--JS: update icount entries if adding new ikey      
-      integer, save :: icount(12)=0, nprint
+      integer, save :: icount(13)=0, nprint
       integer i,lower,upper,next,ikey,j,logic,index,idum
       double precision dum,scale,umag
 c
@@ -66,6 +66,7 @@ CC--Jun Song modifications
 CC--Jun Song Mod ends
       if (key.eq.'virH') ikey=11 ! plot the viri stress for H atoms
       if (key.eq.'ovit') ikey=12 ! Write Cfg file for ovito
+      if (key.eq.'olmp') ikey = 13 ! write in lammps dump format
       if(ikey.eq.0) then
          write(*,*) 'ERROR: unknown key'
          return
@@ -428,7 +429,7 @@ c***         convert to engineering strains
 
 
 c     find max and min of coordintes so that a box can be made.
-      if (key.eq.'atom' .or. key .eq. 'ovit') then
+      if (key.eq.'atom'.or.key.eq.'ovit'.or.key.eq.'olmp') then
          pe = 0.0d0
         do j=1,2
           box_max(j)=-1E100
@@ -437,6 +438,10 @@ c     find max and min of coordintes so that a box can be made.
         npatoms=0
         npad = 0
         ntot = 0
+!JM   loop adjustment made to include indenter atoms
+!JM   numnp vs numnpp1
+!        print*, '!!!!!!!!numnpp1 value is: ', numnpp1
+!        do i = 1,numnpp1
         do i = 1,numnp
           if( IsRelaxed(i)==1 .or. IsRelaxed(i)==2 .or.
      $          IsRelaxed(i)==-1) then
@@ -675,6 +680,45 @@ CC           zdef = b(3,i)
               write(logic,'(f4.0,1X,A2, 1X, 6f16.11)')Mass, TAtom,
      $          xdef,ydef,zdef,0.0,0.0,0.0
            endif
+
+        endif
+
+        if (key.eq.'olmp') then
+
+          if (i.eq.1) then
+
+            write(logic,'(''ITEM: TIMESTEP'')')
+            write(logic,'(i1)') 0
+            write(logic,'(''ITEM: NUMBER OF ATOMS'')')
+            write(logic,'(i5)') ntot
+            write(logic,'(''ITEM: BOX BOUNDS pp pp pp'')')
+            write(logic,'(f10.4,'' '',f10.4)') 0.0, 
+     $            box_max(1)-box_min(1)
+            write(logic,'(f10.4,'' '',f10.4)') 0.0, 
+     $            box_max(2)-box_min(2)
+            write(logic,'(f10.4,'' '',f10.4)') -z_length/2, z_length/2
+            write(logic,'(''ITEM: ATOMS type x y z'')')
+          end if 
+
+
+          xdef =(x(1,i)+umag*b(1,i)-box_min(1))
+          ydef =(x(2,i)+umag*b(2,i)-box_min(2))
+          zdef = (x(3,i) + umag*b(3,i))
+          if (IsRelaxed(i) == 1) then 
+            TAtom = "1"
+          end if
+          if (IsRelaxed(i) == 2) then 
+            TAtom = "2"
+          end if
+          if (IsRelaxed(i) == -1) then 
+            TAtom = "3"
+          end if
+
+          if( IsRelaxed(i)==1 .or. IsRelaxed(i)==2 .or. IsRelaxed(i) ==
+     $          -1) then
+            write(logic,'(A1, 3f16.8)') TAtom,xdef,ydef,zdef
+          endif         
+
 
         endif
 
