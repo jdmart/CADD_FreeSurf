@@ -691,7 +691,7 @@ CC           zdef = b(3,i)
             write(logic,'(i1)') 0
             write(logic,'(''ITEM: NUMBER OF ATOMS'')')
             write(logic,'(i5)') ntot
-            write(logic,'(''ITEM: BOX BOUNDS pp pp pp'')')
+            write(logic,'(''ITEM: BOX BOUNDS pp ff pp'')')
             write(logic,'(f10.4,'' '',f10.4)') 0.0, 
      $            box_max(1)-box_min(1)
             write(logic,'(f10.4,'' '',f10.4)') 0.0, 
