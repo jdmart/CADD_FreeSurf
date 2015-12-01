@@ -1,4 +1,4 @@
-Free surface with an indenter
+feap blunt crack with a dipole nearby
 500000,500000,2,3,3,6,1,0 
 1
 
@@ -53,7 +53,7 @@ ma02,disl,disl.vtk,10,1.,1.
 %ma01
 
 dtime,,1.0
-loop,time,1
+loop,time,20
   time
 %Apply f to subset of atoms in time for ma01
   ma01
@@ -68,3 +68,4 @@ next,time
 
 end 
 stop 
+
