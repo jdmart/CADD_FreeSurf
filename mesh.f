@@ -214,7 +214,7 @@ c$$$  *************************************************
  
 	print*, 'Moving nodes to the nearest atomic sites'
 ! Move nodes to the nearest atomic sites
-        large = 1.e30
+      large = 1.e30
 	xxmax=-large
 	xxmin=large
 	yymax=-large
@@ -235,10 +235,15 @@ c$$$  *************************************************
 !                print *, i, x(1,i), x(2,i)
                 if (x(1,i) .eq. 0.0d0) then 
                    if (x(2,i) .eq. 0.0d0) then 
+                      print*,"temp_slip set"
+                      print*,"x(1,i) ", x(1,i)
+                      print*,"x(2,i) ", x(2,i)
                       temp_slip = i
                    endif
                endif
 	enddo
+
+      print*,"numNodes :", NumNodes
 
       xslip_start = x(1,temp_slip+1)
       yslip_start = (x(2,temp_slip)+x(2,temp_slip+1))/2.d0
@@ -618,7 +623,7 @@ c     Triangulate, sets all elements to material 1 for this mesh
 !            yy=j*dy
 
 !JM   adding spherical indenter
-      numx=int(12.0d0/dx)+1
+      numx=int(14.0d0/dx)+1
 
       do i=-numx,numx
          xx=i*dx
