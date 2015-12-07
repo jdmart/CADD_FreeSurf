@@ -53,7 +53,7 @@ ma02,disl,disl.vtk,10,1.,1.
 %ma01
 
 dtime,,1.0
-loop,time,20
+loop,time,2
   time
 %Apply f to subset of atoms in time for ma01
   ma01
