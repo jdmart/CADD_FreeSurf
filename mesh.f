@@ -223,9 +223,9 @@ c$$$  *************************************************
 	
 		nodeSite(1)=x(1,i)
 		nodeSite(2)=x(2,i)
-		if(i.ne.countLast) then
+!		if(i.ne.countLast) then
 		call NearestBsite(nodeSite,1,.false.,x(1,i),iGrain)
-		endif
+!		endif
 
 !! find xxmax, xxmin, etc.
 		xxmax = max(x(1,i), xxmax)
@@ -606,11 +606,20 @@ c     Triangulate, sets all elements to material 1 for this mesh
 
       if(numnp.gt.maxnp) stop 'Too many nodes'
 
+      print*,'numnp', numnp
+      print*,'size isRelaxed', size(isRelaxed)
+      print*,''
+      do i=1,numnp+10
+         print*,'node ',i,' : ',isRelaxed(i)
+      enddo
+
+
+
 !JM-----------------ADDING BC ATOMS--------------------
 
       print*, 'Adding a row of BC atoms (indenter) above free surface'
       numNodes = numnp
-      numNodes0 = numnp
+      numNodes0 = numnp + 1
       print*, 'Number of nodes before BC atoms: ', numnp
 
 !JM   for 1 layer of 7 atoms above atomistic region
@@ -623,7 +632,7 @@ c     Triangulate, sets all elements to material 1 for this mesh
 !            yy=j*dy
 
 !JM   adding spherical indenter
-      numx=int(14.0d0/dx)+1
+      numx=int(16.0d0/dx)+1
 
       do i=-numx,numx
          xx=i*dx
@@ -668,6 +677,12 @@ c     Triangulate, sets all elements to material 1 for this mesh
       print*, 'Done adding BC atoms'
       numnp = numNodes
       print*, 'Number of nodes after adding BC atoms: ', numnp    
+      print*,''
+      print*,'contents isRelaxed:'
+      do i=1,numnp+10
+         print*,'node i',i,'isRelaxed',isRelaxed(i)
+      enddo
+
 
 !JM   Determine nodal character of brinell indenter atoms (isRelaxed = 1)
 !JM   cannot use statuscalc...only for triangulated nodal points that
@@ -689,6 +704,11 @@ c     Triangulate, sets all elements to material 1 for this mesh
          id(1,i) = 0
          id(2,i) = 1
          print *, 'mesh BC: atom ',i
+      enddo
+
+      print*,'contents isrelaxed'
+      do i=1,numnp+10
+         print*,'i',i,'isRelaxed',isRelaxed(i)
       enddo
 
 
